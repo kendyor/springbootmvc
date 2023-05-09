@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.certus.plataformasweb.demoweb.model.User;
+import com.certus.plataformasweb.demoweb.model.UserCertus;
 import com.certus.plataformasweb.demoweb.repository.UserRepository;
 
 import jakarta.validation.Valid;
@@ -21,12 +21,13 @@ public class UserController {
 	private UserRepository userRepository;
 	
 	@GetMapping("/signup")
-	public String showSignUpForm(User user) {
+	public String showSignUpForm(UserCertus user, Model model) {
+        model.addAttribute("user", user);
 		return "add-user";
 	}
 	
     @PostMapping("/adduser")
-	public String addUser(@Valid User user, BindingResult result, Model model) {
+	public String addUser(@Valid UserCertus user, BindingResult result, Model model) {
 		if(result.hasErrors()) {
 			return "add-user";
 		}
@@ -44,7 +45,7 @@ public class UserController {
     
     @GetMapping("/edit/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        User user = userRepository.findById(Long.getLong(id+"")).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+    	UserCertus user = userRepository.findById(Long.getLong(id+"")).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
         
         model.addAttribute("user", user);
         
@@ -52,7 +53,7 @@ public class UserController {
     }
 
     @PostMapping("/update/{id}")
-    public String updateUser(@PathVariable("id") Integer id, @Valid User user, 
+    public String updateUser(@PathVariable("id") Integer id, @Valid UserCertus user, 
       BindingResult result, Model model) {
     	
         if (result.hasErrors()) {
@@ -67,7 +68,7 @@ public class UserController {
         
     @GetMapping("/delete/{id}")
     public String deleteUser(@PathVariable("id") Integer id, Model model) {
-        User user = userRepository.findById(Long.getLong(id+"")).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+    	UserCertus user = userRepository.findById(Long.getLong(id+"")).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
         
         userRepository.delete(user);
         

@@ -7,7 +7,7 @@ import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
-public class User {
+public class UserCertus {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -20,11 +20,11 @@ public class User {
 
     // standard constructors / setters / getters / toString
     
-    public User() {
+    public  UserCertus() {
 		// TODO Auto-generated constructor stub
 	}
     
-    public User(Integer id, @NotBlank(message = "Name is mandatory") String name,
+    public UserCertus(Integer id, @NotBlank(message = "Name is mandatory") String name,
 			@NotBlank(message = "Email is mandatory") String email) {
 		super();
 		this.id = id;
