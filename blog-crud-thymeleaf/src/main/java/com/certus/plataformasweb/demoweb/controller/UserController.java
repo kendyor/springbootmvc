@@ -45,7 +45,8 @@ public class UserController {
     
     @GetMapping("/edit/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-    	UserCertus user = userRepository.findById(Long.getLong(id+"")).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+    	Long idRecibido =Long.valueOf(id.longValue());
+    	UserCertus user = userRepository.findById(idRecibido).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
         
         model.addAttribute("user", user);
         
@@ -68,7 +69,8 @@ public class UserController {
         
     @GetMapping("/delete/{id}")
     public String deleteUser(@PathVariable("id") Integer id, Model model) {
-    	UserCertus user = userRepository.findById(Long.getLong(id+"")).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+    	Long idRecibido =Long.valueOf(id.longValue());
+    	UserCertus user = userRepository.findById(idRecibido).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
         
         userRepository.delete(user);
         
